@@ -1,0 +1,1 @@
+* See https://blog.ionelmc.ro/2014/05/25/python-packaging/ for info about a good project directory structure.

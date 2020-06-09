@@ -1,0 +1,2 @@
+import motleylog
+help(motleylog)

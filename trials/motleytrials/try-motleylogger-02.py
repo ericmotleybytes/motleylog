@@ -1,0 +1,10 @@
+from motleylog.motleylogger import MotleyLogger
+#print("try to instantiate through getLogger...")
+a = MotleyLogger.getLogger("test1")
+#print(f"resultant names: {a.getMotleyLoggerName()} and {a.getLoggingLoggerName()}")
+#print("try to instantiate through regular init...")
+b = MotleyLogger("test1")
+#print(f"resultant names: {b.getMotleyLoggerName()} and {b.getLoggingLoggerName()}")
+#print(f'global dict={MotleyLogger.motleyLoggers}')
+a.getLoggingLogger().debug("Testing output")
+b.debug("Testing %s again","it",exc_info=0)

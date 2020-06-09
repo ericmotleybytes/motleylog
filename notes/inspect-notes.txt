@@ -1,0 +1,355 @@
+import inspect
+import builtins
+  # See https://koor.fr/Python/API/python/inspect/FrameInfo/Index.wp
+  # See https://docs.python.org/3.8/library/inspect.html?highlight=inspect#module-inspect
+
+module inspect:
+  Static methods:
+    inspect.cleandoc(doc)
+    inspect.currentframe()                   # returns frame object for caller's stack frame (or None for some implementations)
+    inspect.findsource(obj)                  # returns entire source file and starting line number.
+                                             # obj can be module, class, method, function, traceback, frame, or code object.
+    inspect.getabsfile(obj, _filename=None)  # absolute path to source or compiled file for object
+    inspect.getargs(codeObj)
+    inspect.getargspec(func)                 # deprecated, use getfullargspec
+    inspect.getargvalues(frame)              # Get information about arguments passed into a particular frame.
+      A tuple of four things is returned: (args, varargs, varkw, locals).
+        'args' is a list of the argument names.
+        'varargs' and 'varkw' are the names of the * and ** arguments or None.
+        'locals' is the locals dictionary of the given frame.
+    inspect.getattr_static(object,attr,default=None)  # get attributes wo triggering dynamic stuff
+    inspect.getblock(lines)                          # extract block of code at top of the list of lines.
+    inspect.getcallargs(func, /, *positional, **named)  # Get the mapping of arguments to values.
+      A dict is returned, with keys the function argument names (including the
+      names of the * and ** arguments, if any), and values the respective bound
+      values from 'positional' and 'named'.
+    inspect.getclasstree(classes, unique=false) # Arrange the given list of classes into a hierarchy of nested lists.
+    inspect.getclosurevars(func)
+    inspect.getcomments(obj)     # return lines of comments immediately preceding object source code, else None.
+    inspect.getdoc(obj)  # get doc string
+    inspect.getfile(object)
+    inspect.getframeinfo(frame, context=1)  # info about frame of traceback object
+      # returns Traceback(filename,lineno,function,codecontext,index)
+    inspect.getfullargspec(func)  # Returns 7 value tuple...
+      func is of standard python class "function".
+      A tuple of seven things is returned:
+        (args, varargs, varkw, defaults, kwonlyargs, kwonlydefaults, annotations).
+        'args' is a list of the parameter names.
+        'varargs' and 'varkw' are the names of the * and ** parameters or None.
+        'defaults' is an n-tuple of the default values of the last n parameters.
+        'kwonlyargs' is a list of keyword-only parameter names.
+        'kwonlydefaults' is a dictionary mapping names from kwonlyargs to defaults.
+        'annotations' is a dictionary mapping parameter names to annotations.
+    inspect.getinnerframes(frame, context=1) # returns a list of FrameInfo(frame, filename, lineno, function, codecontext, index)
+      Get a list of records for a traceback's frame and all lower frames.
+      Each record contains a frame object, filename, line number, function name, a list of lines of context, and index within the context.
+    inspect.getlineno(frame) # gets line number for frame obj, allowing for optimization.
+    inspect.getmembers(object[,predicate])   # returns object members as a list of (name, value) pairs.
+    inspect.getmodule(obj, _filename=None)   # return module object was defined in, else None.
+    inspect.getmodulename(filepath)          # returns name of module for filepath, else None
+    inspect.getouterframes(frame, context=1) # returns a list of FrameInfo(frame, filename, lineno, function, codecontext, index)
+      # context is how many code context lines go into code_context.
+      # index is the context entry for the code that called routine doing the inspection analysis.
+    inspect.getsource(obj)   # return text of source code for an object. Module, class, function, traceback, frame, or code object.
+    inspect.getsourcefile(object)
+    inspect.getsourcelines(object)  # Return a list of source lines and starting line number for an object.
+        The argument may be a module, class, method, function, traceback, frame,
+        or code object.  The source code is returned as a list of the lines
+        corresponding to the object and the line number indicates where in the
+        original source file the first line of code was found.  An OSError is
+        raised if the source code cannot be retrieved.
+    inspect.indentsize(line)  # Return the indent size, in spaces, at the start of a line of text.
+    inspect.isabstract(object)
+    inspect.isbuiltin(object)
+    inspect.isclass(object)
+    inspect.iscode(object)
+    inspect.iscoroutinefunction(object)
+    inspect.iscoroutine(object)
+    inspect.isdatadescriptor(object)
+    inspect.isframe(object)
+    inspect.isfunction(object)
+    inspect.isgenerator(object)
+    inspect.isgeneratorfunction(object)
+    inspect.isgetsetdescriptor(object)
+    inspect.ismemberdescriptor(object)
+    inspect.ismethod(object)
+    inspect.ismethoddescriptor(object)
+    inspect.ismodule(object)
+    inspect.isroutine(object)
+    inspect.istraceback(object)
+    inspect.signature(obj, *, follow_wrapped=True)
+        Get a signature object for the passed callable.
+    inspect.stack(context=1) # returns a list of FrameInfo onjects
+        Return a list of records for the stack above the caller's frame.
+    inspect.trace(context=1)
+        Return a list of records for the stack below the current exception.
+        returns list of FrameInfoFrameInfo(frame, filename, lineno, function, codecontext, index)
+    inspect.unwrap(func, *, stop=None)
+        Get the object wrapped by *func*.
+  Class Methods:
+    classify_class_attrs(cls)  # returns a list of tupple for each dir(cls) entry (name,kind,class,value)
+      # kind can be "class method", "static method", "property", "method", "data".
+      # value is as getattr would get it.
+    inspect.getmro(cls)   # return tuple of base classes
+  Classes in module:
+    class ArgInfo...
+    class ArgSpec...
+    class Arguments...
+    class Attribute...
+    class BlockFinder...
+    class BoundArguments...
+    class ClosureVars...
+    class EndOfBlock...
+    class FrameInfo...       # see below
+    class FullArgSpec...     # see below
+    class Parameter...       # see below
+    class Signature...       # see below
+
+
+class: inspect.FrameInfo <- builtins.tuple <- builtins.object
+  constructor: FrameInfo(frame, filename, lineno, function, code_context, index)
+  Data Descriptors: (fields)
+    frameinfo.filename
+    frameinfo.lineno
+    frameinfo.function   # string functionname
+    frameinfo.frame
+    frameinfo.index
+    frameinfo.code_context
+  Methods:
+    __repr__(self)
+    _asdict(self)   # returns a dict mapping field names (e.g., "filename") to values
+    _replace(...)
+    __getattribute__(sef,name,/)
+    __getitem__(self,key,/)
+    __len__(self,/)
+    count(self,value,/)
+    ...
+
+class: inspect.frame
+  Fields:
+    frame.f_back      # frame onject
+    frame.f_code      # code object
+    frame.f_globals   # dictionary
+      ['__name__']      # module name, fully qualified with package name.
+      ['__doc__']       # docs
+      ['__code__']      # ? (not there)
+      ['__package__']   # package name
+      ['__spec__']      # ModuleSpec object
+                      # key by "MotleyInspector" with class as value!!!
+                      # Also Lists class at start of string
+        [name]        # package name
+        [origin]      # filespec of module
+      ['__file__']      # filespec of source file
+    frame.f_lasti
+    frame.f_lineno
+    frame.f_locals
+    frame.f_trace
+
+class inspect.FullArgSpec:
+  Methods:
+    __repr__(self)
+    _asdict(self)    # dict of field names to values
+    _replace(...)
+  Data Descriptors:
+    args
+    varargs
+    varkw
+    defaults
+    kwonlyargs
+    kwonlydefaults
+    _field_defaults = {}
+    _fields  # tuple of field names
+    __contains__(self,key,/)
+    __getattribute__(self,key,/)
+    __len__(self)
+    __iter__(self)
+    count(self,value)
+    index(self,value,start=0,stop=99999999,/)  # return index of first value, raises ValueError if value not found
+
+class: inspect.Parameter:
+  Public attributes:
+    name        # name of param as str
+    default     # Parameter.empty or some object which is the default.
+    annotation  # annotation for param if specified, else Parameter.empty.
+    kind        # Str describing how arg values are bound to param.
+      # can be Parameter.POSITION_ONLY, POSITION_OR_KEYWORD, VAR_POSITIONAL, KEYWORD_ONLY, VAR_KEYWORD
+  Methods:
+    __hash__(self)
+    __repr__(self)
+    __setstate__(self,state)
+    __str__(self)
+
+class: inspect.Signature:
+  Public attributes:
+    parameters  # An OrderedDict mapping of params names to param objects.
+    return_annotation : Annotation object for the return type if specified else Signature.empty
+  Instance Methods:
+    bind(...)
+    bind_partial(...)
+    __hash__(self)
+    __repr__(self)
+    __setstate__(self,state)
+    __str__(self)
+  Class Methods:
+    from_builtin(func)    # deprecated, use Signature.from_callable
+    from_callable(obj, *, follow_wrapped=True)  # Constructs signature for given callable object
+    from_function(func)   # deprecated, use Signature.from_callable
+  Parameters:
+    return_annotation
+
+class inspect: Traceback:
+  TBD
+
+class: code
+    code.co_argcount
+    code.co_cellvars
+    code.co_code
+    code.co_consts
+    code.co_filename
+    code.co_firstlineno
+    code.co_flags
+    code.co_freevars
+    code.co_kwonlyargcount
+    code.co_lnotab
+    code.co_name
+    code.co_names
+    code.co_nlocals
+    code.co_posonlyargcount
+    code.co_stacksize
+    code.co_varnames
+
+class builtins.tuple <- builtins.obj
+  constructor: builtins.tuple(*args, **kwargs)
+  Instance methods:
+
+class builtins.object
+  constructor: builtins.object(*args, **kwargs)
+  Instance methods:
+    self.__delattr__(name)  # delete attribute
+    self.__dir__()          # returns list of methods and such
+    self.__repr__()         # returns repr str
+    self.__str__()          # returns str
+    ...
+
+Universal builtin functions: (see https://docs.python.org/3.8/library/functions.html)
+  abs(x)
+  all(iterable)
+  any(iterable)
+  ascii(object)
+  bin(x)
+  bool([x])
+  bytearray([source[,encoding[,errors]]])
+  bytes([source[,encoding[,errors]]]) # immutable
+  callable(object)
+  chr(i)
+  complex([real[,imag]])
+  delattr(object,name)
+  dict(???)                           # return new created dictionary
+  dir()                               # list of current local scope objects
+  dir(object)                         # list of attributes, approximate
+  divmod(a,b)
+  enumerate(iterable, start=0)        # return an enumerate object
+  eval(...)
+  exec(...)
+  filter(function,iterable)
+  class float([x])
+  format(value[,formatspec])
+  globals()                           # returns dict of global symbol table
+  getattr(object, name[, default])    # returns object attribute or default
+  hasattr(object, name)               # returns True is object has attribute
+  hash(object)                        # returns hash value integer of object
+  help(object)                        # output help text
+  hex(x)                              # returns lowercase hex string for integer
+  id(object)
+  input([prompt])
+  int([x])
+  int(x,base=10)
+  isinstance(object,classinfo)
+  issubsclass(object,classinfo)
+  iter(object[, sentinel])
+  len(s)
+  class list([iterable])
+  locals()                            # return dict of local symbol table
+  map(function,iterable,...)
+  max(*)
+  class memoryView(object)
+  min(*)
+  next(iterable[,default])
+  class object
+  oct(x)
+  open(*)
+  ord(c)
+  pow(base,exp[,mod])
+  print(*)
+  class property...
+  class range...
+  repr(object)
+  reversed(seq)
+  round(number[,ndigits])
+  class set...
+  setattr(object,name,value)
+  class slice...
+  sorted(*)
+  class str(*)
+  super(*)
+  class tuple([iterable])
+  class type(object)
+  class type(name, bases, dict)
+  vars([object])   # returns the __dict__ attribue for a module, class, instance, etc.
+  zip(*)
+
+Standard "module" class:
+  Methods:
+    __dir__(...)
+    __getattribute__(self,name,/)
+    __repr__(self,/)
+    __setattr__(self,name,value,/)
+  Data Descriptors:
+    __dict__
+
+Standard "function" class:
+  Methods:
+    __get__(self,instance,owner, /)  # return attr of instance which is of type owner
+    __repr__(self,/)
+  Data Descriptors:
+    __annotations__
+    __closure__
+    __code__
+    __defaults__
+    __globals__
+    __kwdefaults__
+
+Standard "code" class:
+  Methods:
+    __getattribute__(self,name,/)
+    __hash__(self,/)
+    __repr__(self,/)
+    __sizeof__(...)
+  Data Descriptors:
+    co_argcount
+    co_cellvars
+    co_code
+    co_consts
+    co_filename     # file spec, or "<stdin>" for interactive input.
+    co_firstlineno  # always 1 if co_filename is "<stdin>"
+    co_flags
+    co_freevars
+    co_kwonlyargcount
+    co_lnotab
+    co_name         # e.g., string name of the function
+    co_names
+    co_nlocals
+    co_posonlyargcount
+    co_stacksize
+    co_varnames     # tuple of variable names (starting with params)
+
+Tricks:
+* Get current module as an instance from module name string.
+  m = sys.modules[__name__]
+* Get function from function string:
+  f = locals()["functionname"]  # or...
+  f = globals()["functionname"]
+* See https://stackoverflow.com/questions/2315044/how-to-generate-a-module-object-from-a-code-object-in-python
+  for info on how to use class module.
+    import types
+    x = types.ModuleType('m','The M module')
