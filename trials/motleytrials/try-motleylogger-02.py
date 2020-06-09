@@ -1,10 +1,24 @@
 from motleylog.motleylogger import MotleyLogger
-#print("try to instantiate through getLogger...")
-a = MotleyLogger.getLogger("test1")
-#print(f"resultant names: {a.getMotleyLoggerName()} and {a.getLoggingLoggerName()}")
-#print("try to instantiate through regular init...")
-b = MotleyLogger("test1")
-#print(f"resultant names: {b.getMotleyLoggerName()} and {b.getLoggingLoggerName()}")
-#print(f'global dict={MotleyLogger.motleyLoggers}')
-a.getLoggingLogger().debug("Testing output")
-b.debug("Testing %s again","it",exc_info=0)
+from motleylog.motleyformatter import MotleyFormatter
+log1 = MotleyLogger.getLogger("logger1")
+log1.debug("Log message %s.",1,exc_info=0)
+
+fmt1 = '%(levelname)s: %(asctime)s: %(message)s %(msecs)03d'
+for1 = MotleyFormatter(fmt=fmt1,style="%")
+log1.setFormatter(for1)
+log1.debug("Log message %s.",2)
+
+fmt2 = '{levelname}: {asctime}: {message} {msecs}'
+for2 = MotleyFormatter(fmt=fmt2,style="{")
+log1.setFormatter(for2)
+log1.debug("Log message %s.",3)
+
+fmt3 = '$levelname: $asctime: $message $msecs'
+for3 = MotleyFormatter(fmt=fmt3,style="$")
+log1.setFormatter(for3)
+log1.debug("Log message %s.",4)
+
+fmt4 = '%(levelname)s: %(asctime)s: %(message)s'
+for4 = MotleyFormatter(fmt=fmt4,style="%",precision=9)
+log1.setFormatter(for4)
+log1.debug("Log message %s.",5)

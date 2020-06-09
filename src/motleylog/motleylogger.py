@@ -82,14 +82,19 @@ class MotleyLogger(object):
     def callHandlers(self, record):
         return self.loggingLogger.callHandlers(record)
     def critical(self,msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.critical(msg, *args, **kwargs)
     def debug(self, msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.debug(msg, *args, **kwargs)
     def error(self, msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.error(msg, *args, **kwargs)
     def exception(self, msg, *args, exc_info=True, **kwargs):
-         return self.loggingLogger.error(msg, *args, exc_info=exc_info, **kwargs)
+        kwargs["stacklevel"] = 2
+        return self.loggingLogger.error(msg, *args, exc_info=exc_info, **kwargs)
     def fatal(self, msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.fatal(msg, *args, **kwargs)
     def findCaller(self, stack_info=False, stacklevel=2):
         return self.loggingLogger.findCaller(stack_info=stack_info, stacklevel=stacklevel)
@@ -102,10 +107,12 @@ class MotleyLogger(object):
     def hasHandlers(self):
         return self.loggingLogger.hasHandlers()
     def info(self, msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.info(msg, *args, **kwargs)
     def isEnabledFor(self, level):
         return self.loggingLogger.isEnabledFor(level)
     def log(self, level, msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.log(level, msg, *args, **kwargs)
     def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None, extra=None, sinfo=None):
         return self.loggingLogger.makeRecord(name,level,fn,lno,msg,args,exc_info,func=func,extra=extra,sinfo=sinfo)
@@ -117,6 +124,7 @@ class MotleyLogger(object):
                 hdlr.setLevel(level)
         return self.loggingLogger.setLevel(level)
     def warning(self, msg, *args, **kwargs):
+        kwargs["stacklevel"] = 2
         return self.loggingLogger.warning(msg, *args, **kwargs)
     def addFilter(self, filter):
         return self.loggingLogger.addFilter(filter)
