@@ -360,19 +360,3 @@ def get_naive_datetime(old_aware_datetime):
         raise TypeError("Parameter old_aware_datetime is not an instance of datetime.datetime.")
     new_naive_datetime = old_aware_datetime.replace(tzinfo=None)
     return new_naive_datetime
-
-def getLocalTzOffset():
-    tz = tzlocal.get_localzone()
-    d = datetime.datetime.now(tz)
-    utcOffset = d.utcoffset().total_seconds()
-    if utcOffset>=0:
-        offsetSign = "+"
-    else:
-        offsetSign = "-"
-        utcOffset = utcOffset * -1
-    offHours = int(utcOffset/3600)
-    offMins  = round((utcOffset-(offHours*3600))/60)
-    offHours = "{offHours:02d}".format(offHours=offHours)
-    offMins  = "{offMins:02d}".format(offMins=offMins)
-    result   = f'{offsetSign}{offHours}:{offMins}'
-    return result   # String in +hhmm format.

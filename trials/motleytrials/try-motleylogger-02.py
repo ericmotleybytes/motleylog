@@ -22,3 +22,8 @@ fmt4 = '%(levelname)s: %(asctime)s: %(message)s'
 for4 = MotleyFormatter(fmt=fmt4,style="%",precision=9)
 log1.setFormatter(for4)
 log1.debug("Log message %s.",5)
+
+fmt5 = '%(levelname)s: %(asctime)s: %(message)s'
+for5 = MotleyFormatter(fmt=fmt5,style="%",precision=3)
+log1.setFormatter(for5)
+log1.debug("Log message %s.",5)

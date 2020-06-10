@@ -14,7 +14,6 @@ for tzname in tz_list:
 dt1 = mdt.get_utc_datetime(2019,5,14,18,30,10,123456)
 print(dt1.strftime(fmt1))
 
-
 def dump_dt(dt_utc):
     for tzname in tz_list:
         tz = tz_dict[tzname]
@@ -27,3 +26,9 @@ def dump_dt(dt_utc):
 dump_dt(dt1)
 #dt1_epoch = mdt.get_epoch_from_aware_datetime(dt1)
 #print(f'dt1_epoch={dt1_epoch}')
+
+#for z in pytz.all_timezones:
+#    print(z)
+
+#print(pytz.all_timezones.__class__)
+#print(str(tzlocal.get_localzone()))
