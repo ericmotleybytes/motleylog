@@ -117,8 +117,8 @@ class TestMotleyDatetime(unittest.TestCase):
         self.assertEqual(lax_expect,lax_actual)
 
     def test_get_naive_datetime(self):
-        utc_dt = mdt.get_aware_datetime(2019, 5, 14, 18, 30, 10, 123456, "America/New_York")
-        naive_dt = mdt.get_naive_datetime(utc_dt)
+        the_dt = mdt.get_aware_datetime(2019, 5, 14, 18, 30, 10, 123456, "America/New_York")
+        naive_dt = mdt.get_naive_datetime(the_dt)
         self.assertTrue(mdt.is_naive(naive_dt))
         self.assertEqual(  2019,naive_dt.year)
         self.assertEqual(     5,naive_dt.month)
@@ -128,6 +128,28 @@ class TestMotleyDatetime(unittest.TestCase):
         self.assertEqual(    10,naive_dt.second)
         self.assertEqual(123456,naive_dt.microsecond)
         self.assertIsNone(naive_dt.tzinfo)
+
+    def test_format_datetime(self):
+        aware_dt = mdt.get_aware_datetime(2019, 5, 14, 18, 30, 10, 123456, "America/New_York")
+        aware_dt_str = mdt.format_datetime(aware_dt)
+        self.assertEqual("2019-05-14 18:30:10.123456 EDT-0400",aware_dt_str)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=4)
+        self.assertEqual("2019-05-14 18:30:10.1234 EDT-0400",aware_dt_str)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=9)
+        self.assertEqual("2019-05-14 18:30:10.123456000 EDT-0400",aware_dt_str)
+        naive_dt = mdt.get_naive_datetime(aware_dt)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=9,nanoseconds=123456789)
+        self.assertEqual("2019-05-14 18:30:10.123456789 EDT-0400",aware_dt_str)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=11,nanoseconds=123456789)
+        self.assertEqual("2019-05-14 18:30:10.123456789 EDT-0400",aware_dt_str)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=0,nanoseconds=123456789)
+        self.assertEqual("2019-05-14 18:30:10. EDT-0400",aware_dt_str)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=-1,nanoseconds=123456789)
+        self.assertEqual("2019-05-14 18:30:10. EDT-0400",aware_dt_str)
+        naive_dt_str = mdt.format_datetime(naive_dt)
+        self.assertEqual("2019-05-14 18:30:10.123456 ",naive_dt_str)
+        aware_dt_str = mdt.format_datetime(aware_dt,precision=8,nanoseconds=987654321)
+        self.assertEqual("2019-05-14 18:30:10.98765432 EDT-0400",aware_dt_str)
 
 if __name__=='__main__':
     unittest.main()

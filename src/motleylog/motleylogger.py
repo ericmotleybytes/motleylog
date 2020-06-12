@@ -39,6 +39,7 @@ class MotleyLogger(object):
                 formatter = MotleyFormatter()
                 consoleHandler = logging.StreamHandler(sys.stdout)
                 consoleHandler.setFormatter(formatter)
+                consoleHandler.setLevel(logging.DEBUG)
                 instance.loggingLogger.addHandler(consoleHandler)
             # save MotleyLogger instance in master dictionary
             MotleyLogger.motleyLoggers[loggerName] = instance
