@@ -79,19 +79,6 @@ class TestMotleyFormatter(unittest.TestCase):
             self.fail("Unexpected exception: " + sys.exc_info()[0])
 
     def test_formatTime(self):
-        # Get a fresh logger.
-        #loggerName = __name__ + 'test_formatTime'
-        #logger = logging.getLogger(loggerName)
-        #logger.setLevel(logging.DEBUG)
-        #formatter = logging.Formatter(fmt='%(asctime)s', style='%', datefmt='%Y-%m-%d %H:%M:%S.%f %Z%z')
-        #handler = logging.StreamHandler(sys.stdout)
-        #handler.setFormatter(self.formatter)
-        #handler.setLevel(logging.DEBUG)
-        #logger.addHandler(self.handler)
-        #with unittest.mock.patch('sys.stdout', new=io.StringIO()) as outbuf:
-        #    logger.debug("dummy")
-        #self.assertEqual("",outbuf.getvalue().strip())
-        #
         aware_dt = mdt.get_aware_datetime(2019, 5, 14, 18, 30, 10, 123456, "UTC")
         ts = mdt.get_epoch_from_aware_datetime(aware_dt)
         log_record = logging.LogRecord("loggername",logging.DEBUG,pathname="/home",lineno=0,msg="dummy",

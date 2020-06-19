@@ -1,4 +1,4 @@
-"""Defnes the MotleyFormatter class to extend formatting features (especially datetime related) for log messages."""
+"""Defines MotleyFormatter class to extend formatting features (especially datetime related) for log messages."""
 import logging
 import pytz
 from datetime import datetime

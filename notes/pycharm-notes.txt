@@ -1,0 +1,9 @@
+How to fix stderr and stdout ourder in pycharm output window even if you are flushing.
+
+See https://intellij-support.jetbrains.com/hc/en-us/community/posts/206882795-Console-error-msg-interspersed-with-normal-output
+
+From the top pulldown menu select: "Help | Edit Custom Properties..."
+
+In the file that appears (idea,properties) add the line:
+output.reader.blocking.mode=true
+
